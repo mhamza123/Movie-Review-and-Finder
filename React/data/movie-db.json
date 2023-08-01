@@ -5,7 +5,7 @@
       "Description": "Don Vito Corleone, head of a mafia family, decides to hand over his empire to his youngest son Michael. However, his decision unintentionally puts the lives of his loved ones in grave danger.",
       "release": "1972",
       "duration": "2h 55min",
-      "img": "./movie-img/the-god-father.png",
+      "img": "/movie-img/the-god-father.png",
       "id": 1
     }, 
     {
@@ -13,7 +13,7 @@
       "Description": "Over the course of several years, two convicts form a friendship, seeking consolation and, eventually, redemption through basic compassion.",
       "release": "1994",
       "duration": "2h 22min",
-      "img": "./movie-img/the-shawshank.png",
+      "img": "/movie-img/the-shawshank.png",
       "id": 2
     }, 
     {
@@ -21,8 +21,19 @@
       "Description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
       "release": "2008",
       "duration": "2h 32min",
-      "img": "./movie-img/the-dark-knight.png",
+      "img": "/movie-img/the-dark-knight.png",
       "id": 3
+    }
+  ],
+
+  "users":[
+    {
+      "username": "me",
+      "password": "p"
+    },
+    {
+      "username": "mehak",
+      "password": "mehak"
     }
   ]
 }

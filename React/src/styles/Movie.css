@@ -1,0 +1,11 @@
+.movieDetails {
+    background: linear-gradient( rgb(66, 64, 44), rgb(38, 39, 43));
+    padding: 20px;
+    height: 100vh;
+}
+
+.movieDetails img {
+    width: 150px; 
+    height: auto; 
+    border-radius: 8px; 
+}

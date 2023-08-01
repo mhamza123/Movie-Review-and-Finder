@@ -1,29 +1,56 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './Login.js'
-import Home from './Home.js'
-import Navbar from './Navbar.js'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import Login from './components/Login.js';
+import Home from './components/Home.js';
+import Navbar from './components/Navbar.js';
+import AllMovies from './components/AllMovies.js';
+import Movie from './components/Movie.js';
 
-function App() {
+const UsernameContext = React.createContext('');
+
+const App = () => {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  const updateUsername = (newUsername) => {
+    setUsername(newUsername);
+    localStorage.setItem('username', newUsername);
+  };
 
   return (
-    <Router>
-      <div className="App">
-        <div className="content">
-          <Switch>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <div>
-              <Navbar />
-              <Route exact path="/home">
-                <Home />
+    <UsernameContext.Provider value={username}>
+      <Router>
+        <div className="App">
+          <div className="content">
+            <Switch>
+              <Route exact path="/">
+                  {username ? <Redirect to="/home" /> : <Redirect to="/login" />}
+                </Route>
+              <Route exact path="/login">
+                {username ? <Redirect to="/home" /> : <Login onLogin={updateUsername} />}
               </Route>
-            </div>
-          </Switch>
+              <div>
+                <Navbar username={username} onLogout={() => updateUsername('')} />
+                <Route exact path="/home">
+                  {username ? <Home /> : <Redirect to="/login" />}
+                </Route>
+                <Route exact path="/browse" > <AllMovies/> </Route>
+                <Route path="/movie/:id"><Movie></Movie></Route>
+                
+
+              </div>
+            </Switch>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </UsernameContext.Provider>
   );
-}
+};
 
 export default App;
