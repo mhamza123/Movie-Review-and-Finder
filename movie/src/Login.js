@@ -1,91 +1,165 @@
 import React, { useState } from 'react';
 import "../static/css/Login.css";
-import { Link , useHistory} from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom';
+import backgroundImage from '../img/movie.jpg'
 
 const Login = () => {
-     // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const history = useHistory();
-  // User Login info
-  const database = [
-    {
-      username: "me",
-      password: "p"
-    },
-    {
-      username: "mehak",
-      password: "mehak"
-    }
-  ];
 
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password"
-  };
-
-  const handleSubmit = (event) => {
-    //Prevent page reload
+  const handleLogin = (event) => {
     event.preventDefault();
 
-    var { uname, pass } = document.forms[0];
+    const { uname, pass } = event.target.elements;
 
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-        history.push('/home');
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
+    // Send login data to Django API for authentication
+    fetch('http://localhost:8000/backend/api/login/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: uname.value,
+        password: pass.value,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setIsSubmitted(true);
+          history.push('/home');
+        } else if (response.status === 401) {
+          setErrorMessages({ uname: "Invalid username or password", pass: "Invalid username or password" });
+        } else {
+          throw new Error('Something went wrong.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
+  const handleRegistration = (event) => {
+    event.preventDefault();
 
-  // JSX code for login form
-  const renderForm = (
+    const { regUname, regPass, regEmail } = event.target.elements;
+
+    // Create a new user object
+    const newUser = {
+      username: regUname.value,
+      password: regPass.value,
+      email: regEmail.value,
+      // Add more fields as needed
+    };
+
+    // Send the new user data to the Django API
+    fetch('http://localhost:8000/backend/api/register/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setErrorMessages({});
+          setIsLoginForm(true);
+          // Display a success message or redirect to login after successful registration
+        } else if (response.status === 400) {
+          response.json().then((data) => {
+            const errorFields = Object.keys(data);
+            const errorMessages = errorFields.reduce((acc, field) => {
+              acc[field] = data[field][0];
+              return acc;
+            }, {});
+            setErrorMessages(errorMessages);
+          });
+        } else {
+          throw new Error('Something went wrong.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  const renderLoginForm = (
     <div className="form">
-      <form>
+      <form onSubmit={handleLogin}>
         <div className="input-container">
           <label>Username </label>
           <input type="text" name="uname" required />
-          {renderErrorMessage("uname")}
+          {errorMessages.uname && <div className="error">{errorMessages.uname}</div>}
         </div>
         <div className="input-container">
           <label>Password </label>
           <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
-            <button className="submit" onClick={handleSubmit}>Sign In</button>
+          {errorMessages.pass && <div className="error">{errorMessages.pass}</div>}
         </div>
         <br />
-        <div className="have-account">
-            <span>Don't have an account?  </span>
-            <button className="signup" onClick={() => history.push('/creat-account')}>Sign Up</button>
+        <button className="submit" type="submit">Sign In</button>
+      </form>
+    </div>
+  );
+
+  const renderRegistrationForm = (
+    <div className="form">
+      <form onSubmit={handleRegistration}>
+        <div className="input-container">
+          <label>Username </label>
+          <input type="text" name="regUname" required />
+          {errorMessages.regUname && <div className="error">{errorMessages.regUname}</div>}
         </div>
+        <div className="input-container">
+          <label>Password </label>
+          <input type="password" name="regPass" required />
+          {errorMessages.regPass && <div className="error">{errorMessages.regPass}</div>}
+        </div>
+        <div className="input-container">
+          <label>Email </label>
+          <input type="email" name="regEmail" required />
+          {errorMessages.regEmail && <div className="error">{errorMessages.regEmail}</div>}
+        </div>
+        <br />
+        <button className="submit" type="submit">Register</button>
       </form>
     </div>
   );
 
   return (
-    <div className="app">
-      <div className="login-form">
-        <div className="title">Login</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+    <div className="wrapper">
+      <div className="app">
+        <div className="login-form">
+          <div className="title">
+            {isLoginForm ? 'Login' : 'Register'}
+          </div>
+          {isLoginForm ? (
+            isSubmitted ? (
+              <div>User is successfully logged in</div>
+            ) : (
+              renderLoginForm
+            )
+          ) : (
+            renderRegistrationForm
+          )}
+          <div className="toggle-form">
+            {isLoginForm ? (
+              <span>
+                Don't have an account?{' '}
+                <button className="toggle-btn" onClick={() => setIsLoginForm(false)}>Register</button>
+              </span>
+            ) : (
+              <span>
+                Already have an account?{' '}
+                <button className="toggle-btn" onClick={() => setIsLoginForm(true)}>Login</button>
+              </span>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
- 
+
 export default Login;

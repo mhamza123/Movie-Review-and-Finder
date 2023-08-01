@@ -3,8 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Movie
-from .serializers import MovieSerializer
+from .models import Movie, User     
+from django.contrib.auth.models import User
+from .serializers import MovieSerializer, UserSerializer
 
 # backend/views.py
 
@@ -41,3 +42,28 @@ def movie_list(request):
     movies = Movie.objects.all()
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def login_view(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    user = User.objects.filter(username=username).first()
+
+    if user is not None and user.check_password(password):
+        # You can set a session variable here if needed
+        return Response({'authenticated': True})
+    else:
+        return Response({'authenticated': False}, status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['POST'])
+def register_view(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    if User.objects.filter(username=username).exists():
+        return Response({'message': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+    user = User.objects.create_user(username=username, password=password)
+    # You can set a session variable here if needed
+    return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)

@@ -140,4 +140,11 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
 }
+
+#SESSION_ENGINE = 'django.contrib.sessions.backends.cache'  # Use cache-based session engine
+#SESSION_COOKIE_NAME = 'moviecookie'  # Replace with your desired session cookie name
+SESSION_COOKIE_AGE = 86400
