@@ -7,7 +7,6 @@
     border-radius: 10px;
   }
   
-  /* Styles for each movie preview */
   .movie-preview {
     display: flex;
     gap: 20px;
@@ -45,6 +44,7 @@
 
  
   @media screen and (max-width: 768px) {
+
     .movie-preview img {
       width: 100px; 
       height: auto; 

@@ -60,7 +60,6 @@
   color: #ffffff;
 }
 
-/* Search bar styles */
 .search-bar {
   display: flex;
   align-items: center;
@@ -117,5 +116,6 @@
     width: 30px;
     height: 30px;
     margin: 0;
+    opacity: 80%;
   }
 }
