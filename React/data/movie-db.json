@@ -23,6 +23,22 @@
       "duration": "2h 32min",
       "img": "/movie-img/the-dark-knight.png",
       "id": 3
+    },
+    {
+      "name": "Oppenheimer",
+      "Description": "The story of American scientist, J. Robert Oppenheimer, and his role in the development of the atomic bomb.",
+      "release": "2023",
+      "duration": "3h",
+      "img": "/movie-img/oppenheimer.png",
+      "id": 4
+    },
+    {
+      "name": "Barbie",
+      "Description": "Barbie suffers a crisis that leads her to question her world and her existence.",
+      "release": "2023",
+      "duration": "1h 54m",
+      "img": "/movie-img/barbie.png",
+      "id": 5
     }
   ],
 
@@ -34,6 +50,26 @@
     {
       "username": "mehak",
       "password": "mehak"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "text": "Very amazing and intresting movie about the italian mafia",
+      "star": 5,
+      "username": "mehak"
+    },
+    {
+      "id": 1,
+      "text": "Just amazing and intresting movie about the italian mafia",
+      "star": 3,
+      "username": "Hello"
+    },
+    {
+      "id": 2,
+      "text": "BLA amazing and intresting movie about the italian mafia",
+      "star": 3,
+      "username": "me"
     }
   ]
 }
