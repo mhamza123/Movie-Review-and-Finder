@@ -3,11 +3,14 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "./useFetch";
 import "../styles/Movie.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Movie = () => {
   const { id } = useParams();
   const { error: movieError, isPending: moviePending, data: movie } = useFetch(`http://localhost:8000/movie/${id}`);
   const { error: reviewError, isPending: reviewPending, data: reviews } = useFetch(`http://localhost:8000/reviews`);
+
+  const history = useHistory();
 
   if (movieError || reviewError) {
     return <div className="movieDetails">{movieError || reviewError}</div>;
@@ -28,7 +31,7 @@ const Movie = () => {
                     <h2>{movie.name}</h2>
                         <div className="details2">
                             <button>Add to Favourite</button>
-                            <button>Add Review</button>
+                            <button onClick={() => history.push(`/movie/${id}/add-review`)}>Add Review</button>
                         </div>
                     </div>
                     <div className="info">

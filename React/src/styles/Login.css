@@ -86,15 +86,14 @@
 
 
   .app {
-    font-family: sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
     height: 100vh;
-    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-    background-image: url('/img/login2.webp');
+    color: #2f2d23;
+    background-image: url('/img/login3.webp');
     background-size: 100% 100%;
   }
   
@@ -108,8 +107,7 @@
     margin-top: 10px;
     margin-inline: 80px;
     cursor: pointer;
-    font-size: 15px;
-    background: #fab67a;
+    font-size: 15px;background: #ebc263;
     border-radius: 10px;
     border: 1px solid #fd7a00;
     color: #413b3b;
@@ -120,10 +118,9 @@
     margin: 10px;
     cursor: pointer;
     font-size: 15px;
-    background: #748ba2;
+    background: #e8da90;
     border-radius: 10px;
-    border: 1px solid #ebbc90;
-    color: #413b3b;
+    border: 1px solid #e6c15d;
     padding: 5px 5px;
   }
   
@@ -142,7 +139,7 @@
   }
   
   .login-form {
-    background: linear-gradient(rgb(207, 209, 222), rgb(214, 185, 166)    );
+    background: linear-gradient(rgb(163, 165, 174), rgb(225, 214, 176)    );
     padding: 2rem;
     padding-inline: 10rem;
     border-radius: 10px;

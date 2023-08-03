@@ -5,10 +5,12 @@
     padding: 20px;
     background: linear-gradient( rgb(66, 64, 44), rgb(38, 39, 43));
     border-radius: 10px;
+    width: 100%;
   }
   
   .movie-preview {
     display: flex;
+    align-content: center;
     gap: 20px;
     color:#d1d1d1;
   }
@@ -29,7 +31,9 @@
 
   .info {
     margin-right: 10px;
+    display: grid;
     color: #fffccf;
+    align-items: top;
   }
 
   .info a{
@@ -49,5 +53,15 @@
       width: 100px; 
       height: auto; 
       border-radius: 8px; 
+    }
+
+    .movies-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      background: linear-gradient( rgb(66, 64, 44), rgb(38, 39, 43));
+      border-radius: 10px;
+      max-width: 94%;
     }
   }  

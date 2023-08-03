@@ -25,13 +25,13 @@ const Navbar = ({ username, onLogout }) => { // Step 1: Receive the onLogout pro
         <Link to="/home" onClick={handleToggleMenu}>Home</Link>
         <Link to="/browse" onClick={handleToggleMenu}>All Movies</Link>
         <Link to="/about" onClick={handleToggleMenu}>About</Link>
-        <Link to="/contact" onClick={handleToggleMenu}>Contact</Link>
       </div>
+     
+      <div className="userinfo">
       <div className="search-bar">
         <input type="text" placeholder="Search Movies" />
         <button>Search</button>
       </div>
-      <div className="userinfo">
         <Link to={`/update-profile/${username}`}>{username}</Link>
         <div className="profile-circle">{firstLetter}</div>
         <button className="logout-btn" onClick={handleLogout}> Logout </button>

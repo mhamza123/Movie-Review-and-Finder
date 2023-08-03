@@ -6,7 +6,7 @@ const AllMovies = () => {
 
     return (
       <div className="home">
-        <div className="browseMovies">
+        <div style={{ display: "grid", alignContent: "center" }}>
           { error && <div>{ error }</div> }
           { isPending && <div>Loading...</div> }
           { data && <Browse movies={data} /> }

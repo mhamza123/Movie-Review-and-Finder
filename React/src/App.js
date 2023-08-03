@@ -5,6 +5,8 @@ import Home from './components/Home.js';
 import Navbar from './components/Navbar.js';
 import AllMovies from './components/AllMovies.js';
 import Movie from './components/Movie.js';
+import Footer from './components/Footer.js';
+import AddReview from './components/AddReview.js';
 
 const UsernameContext = React.createContext('');
 
@@ -41,8 +43,9 @@ const App = () => {
                   {username ? <Home /> : <Redirect to="/login" />}
                 </Route>
                 <Route exact path="/browse" > <AllMovies/> </Route>
-                <Route path="/movie/:id"><Movie></Movie></Route>
-                
+                <Route exact path="/movie/:movie_id/add-review"><AddReview username= {username}/></Route>
+                <Route exact path="/movie/:id"><Movie></Movie></Route>
+                <Footer />
 
               </div>
             </Switch>
