@@ -4,13 +4,25 @@ import { useParams } from "react-router-dom";
 import useFetch from "./useFetch";
 import "../styles/Movie.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useState } from "react";
 
 const Movie = () => {
   const { id } = useParams();
   const { error: movieError, isPending: moviePending, data: movie } = useFetch(`http://localhost:8000/movie/${id}`);
   const { error: reviewError, isPending: reviewPending, data: reviews } = useFetch(`http://localhost:8000/reviews`);
-
+  const [favText, setFavText] = useState('Add to Favourite');
+  
   const history = useHistory();
+
+  const handleAddToFav = () => {
+    if (favText === 'Add to Favourite') {
+      setFavText('Remove From Favourite');
+    }
+    else {
+      setFavText('Add to Favourite');
+    }
+  }
+
 
   if (movieError || reviewError) {
     return <div className="movieDetails">{movieError || reviewError}</div>;
@@ -30,7 +42,7 @@ const Movie = () => {
                     <div className="nameAndButtons">
                     <h2>{movie.name}</h2>
                         <div className="details2">
-                            <button>Add to Favourite</button>
+                            <button onClick={handleAddToFav}>{favText}</button>
                             <button onClick={() => history.push(`/movie/${id}/add-review`)}>Add Review</button>
                         </div>
                     </div>
@@ -40,30 +52,26 @@ const Movie = () => {
                         <p>Duration: {movie.duration}</p>
                     </div>
                 </div>
-                
-                
               </div>
-              
             </div>
             <div>
-            <div>
-                <h2>Reviews: </h2>
-            </div>
-            {reviews &&
-                reviews
-                  .map((review) => (
-                    (review.id === movie.id) && (
-  
-                        <div className="reviews">
-                            <div className="profile-circle">{review.username.charAt(0).toUpperCase()}</div>
-                            <div className="info">
-                                <p>Username: {review.username}</p>
-                                <p>Review: {review.text}</p>
-                                <p>Star: {getStarRating(review.star)}</p>
-                            </div>
-                        </div>
-                    )
-            ))}
+              <div>
+                  <h2>Reviews: </h2>
+              </div>
+              {reviews &&
+                  reviews
+                    .map((review) => (
+                      (review.id === movie.id) && (
+                          <div className="reviews">
+                              <div className="profile-circle">{review.username.charAt(0).toUpperCase()}</div>
+                              <div className="info">
+                                  <p>Username: {review.username}</p>
+                                  <p>Review: {review.text}</p>
+                                  <p>Star: {getStarRating(review.star)}</p>
+                              </div>
+                          </div>
+                      )
+              ))}
             </div>
           </div>
         )

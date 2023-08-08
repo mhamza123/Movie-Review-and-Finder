@@ -7,10 +7,11 @@ const Browse = ({ movies }) => {
       {movies.map(movie => (
         <div className="movie-preview" key={movie.id} >
           <div className="image">
+          <Link to={`/movie/${movie.id}`}>
             <img src={process.env.PUBLIC_URL + movie.img} />
+          </Link>
           </div>
           <div className="info">
-
             <Link to={`/movie/${movie.id}`}>
                 <h2>{ movie.name }</h2>
             </Link>

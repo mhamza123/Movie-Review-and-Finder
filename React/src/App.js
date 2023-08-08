@@ -7,7 +7,8 @@ import AllMovies from './components/AllMovies.js';
 import Movie from './components/Movie.js';
 import Footer from './components/Footer.js';
 import AddReview from './components/AddReview.js';
-
+import About from './components/About.js';
+import Search from './components/Search.js';
 const UsernameContext = React.createContext('');
 
 const App = () => {
@@ -42,9 +43,11 @@ const App = () => {
                 <Route exact path="/home">
                   {username ? <Home /> : <Redirect to="/login" />}
                 </Route>
+                <Route exact path="/about"> <About/> </Route>
                 <Route exact path="/browse" > <AllMovies/> </Route>
                 <Route exact path="/movie/:movie_id/add-review"><AddReview username= {username}/></Route>
                 <Route exact path="/movie/:id"><Movie></Movie></Route>
+                <Route exact path="/search/:query"><Search></Search></Route>
                 <Footer />
 
               </div>
