@@ -6,11 +6,18 @@
   }
 
   .footer-copyrights-big {
+    position: relative;
+    left:0;
+    bottom:0;
+    right:0;
+    width: 100%;
+  
     background-color: #29252B;
     color: #e6e583;
     padding: 0px;
     border-top: 1px solid #fffd6b;
     display: flex;
+    min-height: 0vh;
     flex-direction: column;
   }
 
