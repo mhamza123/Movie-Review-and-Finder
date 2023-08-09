@@ -23,13 +23,13 @@ const Search = () => {
 
   return (
     <div className="home">
-      <div style={{ display: "grid", alignContent: "center" }}>
+      <div style={{ display: "grid", alignContent: "center", height: "100%" }}>
         <h2 style={{color: "#efef83"}}>Search Results for "{query}"</h2>
         {isPending && <div>Loading...</div>}
         {error && <div>{error}</div>}
         {movies.length === 0 && !isPending && <p style={{color: "#efef83"}}>No Movies Found</p>}
         {movies.map(movie => (
-          <div key={movie.id}>
+          <div style={{margin: "20px"}} key={movie.id}>
             <div className="movie-preview" key={movie.id} >
               <div className="image">
                 <Link to={`/movie/${movie.id}`}>
@@ -40,7 +40,7 @@ const Search = () => {
                 <Link to={`/movie/${movie.id}`}>
                   <h2>{ movie.name }</h2>
                 </Link>
-                <p>Description: { movie.description }</p>
+                <p>Description: { movie.Description }</p>
                 <p>Release: { movie.release }</p>
                 <p>Duration: { movie.duration }</p>
               </div>

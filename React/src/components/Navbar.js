@@ -55,6 +55,7 @@ const Navbar = ({ username, onLogout }) => {
           <form onSubmit={(e) => {
             e.preventDefault();
             history.push(`/search/${searchQuery}`);
+            setSearchQuery("");
           }}>
             <input
               type="text"

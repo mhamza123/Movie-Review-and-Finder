@@ -5,6 +5,7 @@
     display: flex;
     width: 100%;
     overflow: hidden;
+    min-height: 64vh;
 }
 
 .browseMovies {
