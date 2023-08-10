@@ -5,15 +5,17 @@ import '../styles/Home.css';
 const Home = () => {
   const { error, isPending, data } = useFetch('http://localhost:8000/movie')
 
-  return (
+return (
     <div className="home">
+      <div className="welcome">
+        <h1>Welcome to HahaHollywood</h1>
+        <p>Here you can review and search your favourite movies.</p>
+        <p>Enjoy!</p>
+      </div>
       <div className="browseMovies">
         { error && <div>{ error }</div> }
         { isPending && <div>Loading...</div> }
-        { data && <Browse movies={data} /> }
-      </div>
-      <div className="favourite">
-        <h2>Favourites</h2>
+        { movies && <Browse movies={movies} staticUrl={staticUrl} /> }
       </div>
     </div>
   );

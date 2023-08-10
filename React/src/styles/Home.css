@@ -3,6 +3,7 @@
     background-size: cover;
     background-position: center;
     display: flex;
+    flex-direction: column;
     width: 100%;
     overflow: hidden;
     min-height: 64vh;
@@ -10,22 +11,21 @@
 
 .browseMovies {
     margin: 30px;
-    width: 55%;
 }
 
-.favourite {
-    display: flex;
-    flex-direction: column;
+.welcome {
+    display: grid;
     gap: 20px;
     padding: 20px;
     background: linear-gradient( rgb(66, 64, 44), rgb(38, 39, 43));
     border-radius: 10px;
     margin: 30px;
-    width: 40%;
     height: fit-content;
+    justify-content: center;
 }
 
-.favourite h2 {
+.welcome p,
+.welcome h1 {
     margin: 0; 
     text-decoration: none;
     text-align: justify;
